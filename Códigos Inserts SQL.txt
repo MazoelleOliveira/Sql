@@ -1,0 +1,63 @@
+4 Formas de Usar o Insert no Sql 
+
+-- Tabela de Testes 
+
+use [Testes Usuário]
+
+Create table Clientes
+(ID_cliente smallint primary key identity,
+Nome varchar(50) not null,
+Data_Nascimento date not null,
+data_cadastro datetime not null)
+
+-- 1° Forma - Declarando Colunas 
+
+insert into Clientes (Nome, Data_Nascimento, data_cadastro)
+values(' Rosa Maria', '29/09/1990', '05/05/2022')
+
+insert Clientes (Data_Nascimento, Nome, data_cadastro)
+values ('30/08/1980',' Rodrigo Sampaio','01/05/2022')
+
+Select* from Clientes
+
+-- Método 2 - Sem Declarar Colunas 
+
+-- Atenção: Os dados precisam esta na Ordem Original da Coluna da Tabela 
+
+Insert into Clientes values('Raimunda Bezerra', '28/07/1967','06/05/2022')
+
+Insert Clientes values('Renata Soares', '29/09/1991', '07/05/2022')
+
+Select*from Clientes
+--Método 3 -- Múltiplas linhas em 1 Insert 
+--Atenção - O SQL permite até 1000 registros por Insert
+
+Insert into Clientes(Nome, Data_Nascimento, data_cadastro) values
+('Sandy Leal','05/08/1986','09/05/2022'),
+('Junior Lima','07/01/1987','09/05/2022')
+
+Select*from Clientes
+
+-- Método 4 -- Insert/Select
+
+-- Criação da Tabela
+
+use [Testes Usuário]
+
+Create Table Clientes_Sorteados
+
+(ID_cliente smallint ,
+nome varchar(50) not null,
+Data_Nascimento date not null,
+data_cadastro datetime not null)
+
+insert into Clientes_Sorteados(ID_cliente,nome,Data_Nascimento, data_cadastro)
+select top 2* from Clientes order by NEWID()
+
+Select*from Clientes
+Select*from Clientes_Sorteados
+go
+
+
+
+ 
